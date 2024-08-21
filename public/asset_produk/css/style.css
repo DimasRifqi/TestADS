@@ -205,13 +205,24 @@ a:focus {
   margin: 0 10px;
 }
 
-.user_option .user_link {
+.user_option .produk_link {
   color: #ffffff;
 }
 
-.user_option .user_link:hover {
+.user_option .produk_link:hover {
   color: #ffbe33;
 }
+
+.user_option .history_link {
+    color: #ffffff;
+  }
+
+  .user_option .history_link:hover {
+    color: #ffbe33;
+  }
+
+
+
 
 .user_option .cart_link {
   display: -webkit-box;
