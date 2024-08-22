@@ -139,7 +139,7 @@
                                         <p>{{ $produk->deskripsi }}</p>
                                         <p><strong>Stok:</strong> {{ $produk->stok }}</p>
                                         <div>
-                                            <h6>RP. {{ number_format($produk->harga, 3) }}</h6>
+                                            <h6>RP. {{ number_format($produk->harga) }}</h6>
                                             <div class="mt-3">
                                                 <a href="#" onclick="openEditModal({{ json_encode($produk) }})"><i class="fa fa-edit fa-lg text-warning mr-3"></i></a>
                                                 <a href="#" onclick="deleteProduct({{ $produk->id }})"><i class="fa fa-trash fa-lg text-danger"></i></a>

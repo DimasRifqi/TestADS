@@ -7,9 +7,8 @@
                 </span>
             </a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class=""> </span>
             </button>
 
@@ -27,11 +26,20 @@
                     <li class="nav-item">
                         <a class="nav-link" href="book.html">Book Table</a>
                     </li>
+                    @php
+                        $user = Auth::user();
+                    @endphp
+
+                    @if ($user && $user->hak_akses_id === 2)
+                        <li class="nav-item {{ Request::is('produk') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('/produk') }}">
+                                <i class="fa fa-tags" aria-hidden="true"></i> Produk
+                            </a>
+                        </li>
+                    @endif
+
                 </ul>
                 <div class="user_option">
-                    <a href="" class="produk_link">
-                        <i class="fa fa-tags" aria-hidden="true"></i>
-                    </a>
 
                     <a href="" class="history_link">
                         <i class="fa fa-file-text"></i>
@@ -39,9 +47,8 @@
 
                     <a class="cart_link" href="#">
                         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                            viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;"
-                            xml:space="preserve">
+                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
+                            style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                             <g>
                                 <g>
                                     <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
@@ -99,9 +106,56 @@
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </button>
                     </form> --}}
-                    <a href="" class="order_online">
+
+                    {{-- <a href="" class="order_online">
                         Login
-                    </a>
+                    </a> --}}
+
+                    @php
+                        $user = Auth::user();
+                    @endphp
+
+                    <nav class="navbar navbar-expand-lg">
+                        <div class="container-fluid">
+                            <!-- Other navbar content -->
+
+                            @if ($user)
+                                <!-- Dropdown menu for logged-in users -->
+                                <div class="dropdown">
+                                    <a class="btn btn-warning text-white rounded-custom dropdown-toggle" href="#" role="button"
+                                    id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ $user->name }}
+                                 </a>
+
+
+
+                                    {{-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+                                    </ul> --}}
+
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
+
+                                </div>
+                            @else
+                                <!-- Link for users not logged in -->
+                                <a href="{{ url('/login') }}" class="order_online">
+                                    Login
+                                </a>
+                            @endif
+                        </div>
+                    </nav>
+
                 </div>
             </div>
         </nav>

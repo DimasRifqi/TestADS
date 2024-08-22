@@ -35,7 +35,7 @@
                                         <p><strong>Stok:</strong> {{ $produk->stok }}</p>
                                         <div class="options">
                                             <h6>
-                                                RP. {{ number_format($produk->harga, 3) }}
+                                                RP. {{ number_format($produk->harga) }}
                                             </h6>
                                             <a href="#">
                                                 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
