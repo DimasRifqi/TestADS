@@ -92,9 +92,36 @@ class ProdukController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'produk_kategori_id' => 'required|exists:produk_kategori,id',
+            'nama' => 'required|string|max:255',
+            'stok' => 'required|integer',
+            'harga' => 'required|numeric',
+            'deskripsi' => 'required|string',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()->first()], 422);
+        }
+
+        try {
+            $produk = Produk::findOrFail($id);
+            $produk->fill($request->all());
+
+            if ($request->hasFile('foto')) {
+                $fileName = time().'.'.$request->foto->extension();
+                $request->foto->move(public_path('asset_produk/foto_produk'), $fileName);
+                $produk->foto = $fileName;
+            }
+
+            $produk->save();
+            return response()->json(['message' => 'Produk berhasil diperbarui', 'produk' => $produk], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
+        }
     }
 
     /**
