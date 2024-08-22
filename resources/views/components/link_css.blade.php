@@ -13,4 +13,5 @@
  <!-- responsive style -->
  <link href="{{ asset('asset_produk/css/responsive.css') }}" rel="stylesheet" />
 
+ <link rel="stylesheet" type="text/css" href="{{ asset('asset_produk/keranjang/style.css') }}" />
  {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> --}}

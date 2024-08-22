@@ -33,7 +33,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="productPrice" class="form-label">Harga</label>
-                            <input type="number" class="form-control" id="productPrice" name="harga" step="0.001" required>
+                            <input type="number" class="form-control" id="productPrice" name="harga" step="0.001"
+                                required>
                         </div>
                         <div class="mb-3">
                             <label for="productDescription" class="form-label">Deskripsi</label>
@@ -41,10 +42,12 @@
                         </div>
                         <div class="mb-3">
                             <label for="productPhoto" class="form-label">Foto Produk</label>
-                            <input type="file" class="form-control" id="productPhoto" name="foto" accept="image/*" onchange="previewImage(event)">
+                            <input type="file" class="form-control" id="productPhoto" name="foto" accept="image/*"
+                                onchange="previewImage(event)">
                         </div>
                         <div class="mb-3">
-                            <img id="photoPreview" src="#" alt="Preview Foto" style="display: none; max-width: 100%; height: auto;">
+                            <img id="photoPreview" src="#" alt="Preview Foto"
+                                style="display: none; max-width: 100%; height: auto;">
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
@@ -88,7 +91,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="editProductPrice" class="form-label">Harga</label>
-                            <input type="number" class="form-control" id="editProductPrice" name="harga" step="0.001" required>
+                            <input type="number" class="form-control" id="editProductPrice" name="harga"
+                                step="0.001" required>
                         </div>
                         <div class="mb-3">
                             <label for="editProductDescription" class="form-label">Deskripsi</label>
@@ -96,10 +100,12 @@
                         </div>
                         <div class="mb-3">
                             <label for="editProductPhoto" class="form-label">Foto Produk</label>
-                            <input type="file" class="form-control" id="editProductPhoto" name="foto" accept="image/*" onchange="previewEditImage(event)">
+                            <input type="file" class="form-control" id="editProductPhoto" name="foto"
+                                accept="image/*" onchange="previewEditImage(event)">
                         </div>
                         <div class="mb-3">
-                            <img id="editPhotoPreview" src="#" alt="Preview Foto" style="display: none; max-width: 100%; height: auto;">
+                            <img id="editPhotoPreview" src="#" alt="Preview Foto"
+                                style="display: none; max-width: 100%; height: auto;">
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
@@ -122,7 +128,8 @@
                 <li data-filter=".pizza">Pizza</li>
                 <li data-filter=".pasta">Pasta</li>
                 <li data-filter=".fries">Fries</li>
-                <button class="ml-3 btn btn-success rounded-btn" data-bs-toggle="modal" data-bs-target="#addMenuModal">Tambah Menu</button>
+                <button class="ml-3 btn btn-success rounded-btn" data-bs-toggle="modal"
+                    data-bs-target="#addMenuModal">Tambah Menu</button>
             </ul>
 
             <div class="filters-content">
@@ -132,7 +139,8 @@
                             <div class="box">
                                 <div>
                                     <div class="img-box">
-                                        <img src="{{ url('asset_produk/foto_produk') }}/{{ $produk->foto }}" alt="">
+                                        <img src="{{ url('asset_produk/foto_produk') }}/{{ $produk->foto }}"
+                                            alt="">
                                     </div>
                                     <div class="detail-box">
                                         <h5>{{ $produk->nama }}</h5>
@@ -141,8 +149,10 @@
                                         <div>
                                             <h6>RP. {{ number_format($produk->harga) }}</h6>
                                             <div class="mt-3">
-                                                <a href="#" onclick="openEditModal({{ json_encode($produk) }})"><i class="fa fa-edit fa-lg text-warning mr-3"></i></a>
-                                                <a href="#" onclick="deleteProduct({{ $produk->id }})"><i class="fa fa-trash fa-lg text-danger"></i></a>
+                                                <a href="#" onclick="openEditModal({{ json_encode($produk) }})"><i
+                                                        class="fa fa-edit fa-lg text-warning mr-3"></i></a>
+                                                <a href="#" onclick="deleteProduct({{ $produk->id }})"><i
+                                                        class="fa fa-trash fa-lg text-danger"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -161,7 +171,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
 
     <script>
-        // Menangani submit form tambah produk
         document.getElementById('addMenuForm').addEventListener('submit', async function(event) {
             event.preventDefault();
             const formData = new FormData(this);
@@ -266,24 +275,33 @@
                 return;
             }
 
+            const responseDiv = document.getElementById('response'); // Menampilkan pesan
+
             try {
                 const response = await fetch(`/produk/${id}`, {
                     method: 'DELETE',
                     headers: {
-                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                        'Content-Type': 'application/json'
                     }
                 });
 
                 if (response.ok) {
-                    alert('Product deleted successfully!');
-                    location.reload();
+                    responseDiv.innerHTML = 'Product deleted successfully!';
+                    // Hapus elemen produk dari daftar jika berhasil
+                    const productItem = document.querySelector(`.box[data-id="${id}"]`);
+                    if (productItem) {
+                        productItem.remove();
+                    }
                 } else {
                     const result = await response.json();
-                    alert(`Error: ${result.message}`);
+                    responseDiv.innerHTML = `Error: ${result.message}`;
                 }
             } catch (error) {
-                alert(`Error: ${error.message}`);
+                responseDiv.innerHTML = `Error: ${error.message}`;
             }
+        }
+
         }
     </script>
 @endsection

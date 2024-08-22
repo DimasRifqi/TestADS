@@ -4,19 +4,22 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\HalamanUtamaController;
-
-// Route::get('/', function () {
-//     return view('index');
-// });
+use App\Http\Controllers\KeranjangController;
 
 
 Route::get('/', [HalamanUtamaController::class, 'index']);
 Route::get('/menu', [HalamanUtamaController::class, 'index_menu']);
 
-// Route::get('/produk', [ProdukController::class, 'index']);
-// Route::post('/addproduk', [ProdukController::class, 'store']);
+Route::group(['middleware' => ['auth']], function() {
 
-// Route::resource('produk', ProdukController::class);
+    Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang.index');;
+    Route::post('/keranjang/tambah', [KeranjangController::class, 'create'])->name('keranjang.create');
+    Route::delete('/keranjang/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.destroy');
+    Route::post('/keranjang/update-qty', [KeranjangController::class, 'updateQty'])->name('keranjang.updateQty');
+
+
+
+});
 
 Route::group(['middleware' => ['auth', 'role:2']], function() {
 
@@ -27,4 +30,4 @@ Route::group(['middleware' => ['auth', 'role:2']], function() {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
