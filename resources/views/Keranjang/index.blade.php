@@ -77,7 +77,8 @@
                                                                 <i class="fa fa-minus"></i>
                                                             </button>
                                                         </span>
-                                                        <p class="mx-2 my-0 boxed-1" id="qty-{{ $data->id }}">{{ $data->qty }}</p>
+                                                        <p class="mx-2 my-0 boxed-1" id="qty-{{ $data->id }}">
+                                                            {{ $data->qty }}</p>
                                                         <span class="input-group-btn">
                                                             <button type="button"
                                                                 class="btn btn-outline-secondary btn-sm btn-increase"
@@ -89,11 +90,12 @@
 
                                                 </div>
                                                 <div class="col-auto d-flex align-items-center">
-                                                    
+
                                                     @php
                                                         $hargaSementara = $data->qty * $data->produk->harga;
                                                     @endphp
-                                                    <p class="mb-0 ml-2" id="total-{{ $data->id }}"><b>Rp. {{ number_format($hargaSementara) }}</b></p>
+                                                    <p class="mb-0 ml-2" id="total-{{ $data->id }}"><b>Rp.
+                                                            {{ number_format($hargaSementara) }}</b></p>
                                                     </p>
                                                 </div>
                                             </div>
@@ -106,16 +108,18 @@
                                                 <p><b>Total</b></p>
                                             </div>
                                             <div class="col-auto">
-                                                <p class="mb-0"><b id="totalHarga">Rp. {{ number_format($totalHarga) }}</b></p>
+                                                <p class="mb-0"><b id="totalHarga">Rp.
+                                                        {{ number_format($totalHarga) }}</b></p>
                                             </div>
                                         </div>
                                         <hr class="my-2">
                                         <div class="row">
                                             <div class="col-md-7 col-lg-6 mx-auto">
-                                                <form action="#" method="POST">
-                                                    @csrf
+                                                <form>
+
                                                     <input type="hidden" name="total" value="#">
-                                                    <button type="submit" class="btn btn-block btn-outline-primary btn-lg">
+                                                    <button type="submit" class="btn btn-block btn-outline-primary btn-lg"
+                                                        id="pay-button">
                                                         BUAT PESANAN
                                                     </button>
                                                 </form>
@@ -136,34 +140,40 @@
                                     @if ($keranjang->isEmpty())
                                         <p class="text-center">Data kosong</p>
                                     @else
-                                    <div class="row bg-light p-3" style="border-radius: 10px;">
-                                        @foreach ($keranjang as $K)
-                                            <div class="col-12" id="detail-{{ $K->id }}">
-                                                <p class="mb-1 text-primary"><i class="fa fa-map-marker mr-2"></i><b>Produk:</b></p>
-                                                <p class="ml-3">{{ $K->Produk->nama }}</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <p class="mb-1 text-success"><i class="fa fa-tag mr-2"></i><b>Kategori:</b></p>
-                                                <p class="ml-3">{{ $K->Produk->ProdukKategori->nama }}</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <p class="mb-1 text-success"><i class="fa fa-cube mr-2"></i><b>Jumlah:</b></p>
-                                                <p class="ml-3" id="detail-qty-{{ $K->id }}">{{ $K->qty }}</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <p class="mb-1 text-warning"><i class="fa fa-calendar mr-2"></i><b>Tanggal:</b></p>
-                                                <p class="ml-3">{{ $K->created_at->format('d M Y') }}</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <p class="mb-1 text-info"><i class="fa fa-dollar mr-2"></i><b>Harga:</b></p>
-                                                @php
-                                                    $hargaSementara = $K->qty * $K->produk->harga;
-                                                @endphp
-                                                <p class="ml-3" id="detail-total-{{ $K->id }}">Rp. {{ number_format($hargaSementara) }}</p>
-                                            </div>
-                                        @endforeach
-                                    </div>
-
+                                        <div class="row bg-light p-3" style="border-radius: 10px;">
+                                            @foreach ($keranjang as $K)
+                                                <div class="col-12" id="detail-{{ $K->id }}">
+                                                    <p class="mb-1 text-primary"><i
+                                                            class="fa fa-map-marker mr-2"></i><b>Produk:</b></p>
+                                                    <p class="ml-3">{{ $K->Produk->nama }}</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p class="mb-1 text-success"><i
+                                                            class="fa fa-tag mr-2"></i><b>Kategori:</b></p>
+                                                    <p class="ml-3">{{ $K->Produk->ProdukKategori->nama }}</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p class="mb-1 text-success"><i
+                                                            class="fa fa-cube mr-2"></i><b>Jumlah:</b></p>
+                                                    <p class="ml-3" id="detail-qty-{{ $K->id }}">
+                                                        {{ $K->qty }}</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p class="mb-1 text-warning"><i
+                                                            class="fa fa-calendar mr-2"></i><b>Tanggal:</b></p>
+                                                    <p class="ml-3">{{ $K->created_at->format('d M Y') }}</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p class="mb-1 text-info"><i
+                                                            class="fa fa-dollar mr-2"></i><b>Harga:</b></p>
+                                                    @php
+                                                        $hargaSementara = $K->qty * $K->produk->harga;
+                                                    @endphp
+                                                    <p class="ml-3" id="detail-total-{{ $K->id }}">Rp.
+                                                        {{ number_format($hargaSementara) }}</p>
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     @endif
                                 </div>
                             </div>
@@ -221,6 +231,120 @@
             });
         });
     </script>
+
+    <!-- Include Midtrans Snap JavaScript library -->
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="{{ config('midtrans.client_key') }}"></script>
+    <!-- Note: Use src="https://app.midtrans.com/snap/snap.js" for Production -->
+
+
+    {{-- <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            var payButton = document.getElementById('pay-button');
+
+            payButton.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                window.snap.pay('{{ $snapToken }}', {
+                    onSuccess: function(result) {
+                        // Kirim data pembayaran ke server
+                        fetch('{{ route('midtrans.callback') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify(result)
+                        }).then(response => {
+                            if (response.ok) {
+                                alert(
+                                    "Pembayaran berhasil dan keranjang telah dikosongkan!");
+                                window.location.href = '{{ url('/') }}';
+                            } else {
+                                response.json().then(data => {
+                                    alert("Gagal menghapus keranjang: " + data
+                                        .message);
+                                });
+                                window.location.href =
+                                '{{ route('keranjang.index') }}';
+                            }
+                        });
+
+                    },
+                    onPending: function(result) {
+                        alert("Menunggu pembayaran!");
+                        console.log(result);
+                        window.location.href = '{{ url('/') }}';
+                    },
+                    onError: function(result) {
+                        alert("Pembayaran gagal!");
+                        console.log(result);
+                        window.location.href = '{{ route('keranjang.index') }}';
+                    },
+                    onClose: function() {
+                        alert('Anda menutup popup tanpa menyelesaikan pembayaran');
+                        window.location.href = '{{ route('keranjang.index') }}';
+                    }
+                });
+            });
+        });
+    </script> --}}
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            var payButton = document.getElementById('pay-button');
+
+            payButton.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                window.snap.pay('{{ $snapToken }}', {
+                    onSuccess: function(result) {
+                        alert("Pembayaran berhasil!");
+                        console.log(result);
+
+
+                        fetch('{{ route('midtrans.callback') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify({
+                                order_id: result.order_id, 
+                                transaction_status: result.transaction_status
+                            })
+                        }).then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                window.location.href = '{{ url('/') }}';
+                            } else {
+                                alert("Gagal menghapus keranjang: " + data.message);
+                            }
+                        }).catch(error => {
+                            console.error('Error:', error);
+                        });
+                    },
+                    onPending: function(result) {
+                        alert("Menunggu pembayaran!");
+                        console.log(result);
+                        window.location.href = '{{ url('/') }}';
+                    },
+                    onError: function(result) {
+                        alert("Pembayaran gagal!");
+                        console.log(result);
+                        window.location.href = '{{ route('keranjang.index') }}';
+                    },
+                    onClose: function() {
+                        alert('Anda menutup popup tanpa menyelesaikan pembayaran');
+                        window.location.href = '{{ route('keranjang.index') }}';
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
 
 
 

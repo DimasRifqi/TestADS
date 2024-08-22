@@ -16,6 +16,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/keranjang/tambah', [KeranjangController::class, 'create'])->name('keranjang.create');
     Route::delete('/keranjang/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.destroy');
     Route::post('/keranjang/update-qty', [KeranjangController::class, 'updateQty'])->name('keranjang.updateQty');
+    // Route::post('/midtrans/callback', [KeranjangController::class, 'handleMidtransCallback'])->name('midtrans.callback');
+
+    Route::post('/midtrans/callback', [KeranjangController::class, 'handleCallback'])->name('midtrans.callback');
 
 
 
