@@ -12,3 +12,5 @@
  <link href="{{ asset('asset_produk/css/style.css') }}" rel="stylesheet" />
  <!-- responsive style -->
  <link href="{{ asset('asset_produk/css/responsive.css') }}" rel="stylesheet" />
+
+ {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> --}}

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 
-class HalamanUtama extends Controller
+class HalamanUtamaController extends Controller
 {
     public function index()
     {
@@ -18,5 +18,4 @@ class HalamanUtama extends Controller
         $data = Produk::all();
         return view('menu', compact('data'));
     }
-
 }

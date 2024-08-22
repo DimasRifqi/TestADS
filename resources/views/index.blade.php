@@ -1,7 +1,7 @@
 @extends('components.app')
 
 @section('content')
-  
+
     <section class="offer_section layout_padding-bottom">
         <div class="offer_container">
             <div class="container ">
@@ -184,13 +184,14 @@
                             <div class="box">
                                 <div>
                                     <div class="img-box">
-                                        <img src="{{ url('asset_produk/images') }}/{{ $produk->foto }}" alt="">
+                                        <img src="{{ url('asset_produk/foto_produk') }}/{{ $produk->foto }}" alt="">
                                     </div>
                                     <div class="detail-box">
                                         <h5>
                                             {{ $produk->nama }}
                                         </h5>
                                         <p>{{ $produk->deskripsi }}</p>
+                                        <p><strong>Stok:</strong> {{ $produk->stok }}</p>
                                         <div class="options">
                                             <h6>
                                                 RP. {{ number_format($produk->harga, 3) }}

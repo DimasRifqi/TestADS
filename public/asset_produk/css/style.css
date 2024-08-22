@@ -6,6 +6,38 @@ body {
   overflow-x: hidden;
 }
 
+.rounded-btn {
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+}
+
+.rounded-btn:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.modal-header .btn-link .fa-times {
+    color: red;
+    font-size: 1.25rem;
+}
+
+.modal-header .btn-link:hover .fa-times {
+    color: darkred;
+}
+
+#photoPreview {
+    max-width: 100%;
+    max-height: 300px;
+    display: none;
+}
+
+
+
+
+
+
 .layout_padding {
   padding: 90px 0;
 }
