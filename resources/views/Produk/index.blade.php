@@ -57,16 +57,6 @@
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
 <section class="food_section layout_padding-bottom">
     <div class="container">
         <div class="heading_container heading_center mt-5">
@@ -109,7 +99,7 @@
                                             <a href="#">
                                                 <i class="fa fa-edit fa-lg text-warning mr-3"></i>
                                             </a>
-                                            <a href="#">
+                                            <a href="#" onclick="deleteProduct({{ $produk->id }})">
                                                 <i class="fa fa-trash fa-lg text-danger"></i>
                                             </a>
                                         </div>
@@ -136,12 +126,12 @@
     document.getElementById('addMenuForm').addEventListener('submit', async function(event) {
         event.preventDefault();
 
-        const formData = new FormData(this); // Mengambil data dari formulir
+        const formData = new FormData(this);
         const responseDiv = document.getElementById('response');
         responseDiv.innerHTML = 'Sending data...';
 
         try {
-            const response = await fetch('{{ route('produk.store') }}', { // Gunakan route yang benar
+            const response = await fetch('{{ route('produk.store') }}', {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -152,10 +142,8 @@
             const result = await response.json();
             if (response.ok) {
                 responseDiv.innerHTML = 'Data berhasil dikirim!';
-                // Menutup modal
                 $('#addMenuModal').modal('hide');
-                // Mengalihkan pengguna ke halaman produk.index
-                window.location.href = '{{ route('produk.index') }}'; // Ganti dengan route yang sesuai
+                window.location.reload();
             } else {
                 responseDiv.innerHTML = 'Error: ' + result.message;
             }
@@ -178,6 +166,34 @@
             reader.readAsDataURL(file);
         }
     }
+
+    async function deleteProduct(id) {
+    const responseDiv = document.getElementById('response');
+    responseDiv.innerHTML = 'Deleting product...';
+
+    try {
+        const response = await fetch(`/produk/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            responseDiv.innerHTML = 'Product successfully deleted!';
+
+            const produkElement = document.querySelector(`a[onclick="deleteProduct(${id})"]`).closest('.col-sm-6.col-lg-4');
+            produkElement.remove();
+        } else {
+            responseDiv.innerHTML = 'Error: ' + result.message;
+        }
+    } catch (error) {
+        responseDiv.innerHTML = 'Error: ' + error.message;
+    }
+}
+
 </script>
 
 

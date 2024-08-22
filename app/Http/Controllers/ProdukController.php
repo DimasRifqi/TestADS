@@ -102,7 +102,22 @@ class ProdukController extends Controller
      */
     public function destroy($id)
     {
-        
+        $produk = Produk::find($id);
+
+        if (!$produk) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Produk tidak ditemukan'
+            ], 404);
+        }
+
+        $produk->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Produk berhasil dihapus'
+        ], 200);
     }
+
 
 }
