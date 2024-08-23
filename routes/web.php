@@ -9,6 +9,8 @@ use App\Http\Controllers\KeranjangController;
 
 Route::get('/', [HalamanUtamaController::class, 'index']);
 Route::get('/menu', [HalamanUtamaController::class, 'index_menu']);
+Route::get('/about', [HalamanUtamaController::class, 'index_about']);
+Route::get('/bookTable', [HalamanUtamaController::class, 'index_bookTable']);
 
 Route::group(['middleware' => ['auth']], function() {
 

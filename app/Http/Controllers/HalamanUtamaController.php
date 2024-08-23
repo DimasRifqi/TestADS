@@ -18,4 +18,15 @@ class HalamanUtamaController extends Controller
         $data = Produk::all();
         return view('menu', compact('data'));
     }
+
+    public function index_about()
+    {
+        return view('about');
+    }
+
+    public function index_bookTable()
+    {
+        return view('book_table');
+    }
+
 }

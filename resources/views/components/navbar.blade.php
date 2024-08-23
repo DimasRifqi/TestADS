@@ -2,9 +2,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
             <a class="navbar-brand" href="index.html">
-                <span>
-                    Feane
-                </span>
+                <span>Feane</span>
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -13,18 +11,20 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav  mx-auto ">
+                <ul class="navbar-nav mx-auto">
                     <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item {{ Request::is('menu') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('/menu') }}">Menu</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About</a>
+
+                    <li class="nav-item {{ Request::is('about') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('/about') }}">About</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="book.html">Book Table</a>
+
+                    <li class="nav-item {{ Request::is('bookTable') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('/bookTable') }}">Book Table</a>
                     </li>
                     @php
                         $user = Auth::user();
@@ -37,15 +37,10 @@
                             </a>
                         </li>
                     @endif
-
                 </ul>
                 <div class="user_option">
 
-                    <a href="" class="history_link">
-                        <i class="fa fa-file-text"></i>
-                    </a>
-
-                    <a class="cart_link" href="#">
+                    <a class="cart_link {{ Request::is('keranjang') ? 'active' : '' }}" href="{{ url('/keranjang') }}">
                         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
                             style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -69,70 +64,17 @@
            c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
                                 </g>
                             </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
-                            <g>
-                            </g>
                         </svg>
                     </a>
-                    {{-- <form class="form-inline">
-                        <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </button>
-                    </form> --}}
 
-                    {{-- <a href="" class="order_online">
-                        Login
-                    </a> --}}
-
-                    @php
-                        $user = Auth::user();
-                    @endphp
-
-                    <nav class="navbar navbar-expand-lg">
-                        <div class="container-fluid">
-                            <!-- Other navbar content -->
-
-                            @if ($user)
-                                <!-- Dropdown menu for logged-in users -->
+                    @if ($user)
+                        <nav class="navbar navbar-expand-lg">
+                            <div class="container-fluid">
                                 <div class="dropdown">
                                     <a class="btn btn-warning text-white rounded-custom dropdown-toggle" href="#" role="button"
                                     id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ $user->name }}
                                  </a>
-
-
-
-                                    {{-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
-                                    </ul> --}}
-
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -145,17 +87,14 @@
                                             @csrf
                                         </form>
                                     </div>
-
                                 </div>
-                            @else
-                                <!-- Link for users not logged in -->
-                                <a href="{{ url('/login') }}" class="order_online">
-                                    Login
-                                </a>
-                            @endif
-                        </div>
-                    </nav>
-
+                            </div>
+                        </nav>
+                    @else
+                        <a href="{{ url('/login') }}" class="order_online">
+                            Login
+                        </a>
+                    @endif
                 </div>
             </div>
         </nav>
