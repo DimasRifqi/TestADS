@@ -15,7 +15,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware(["auth:sanctum"])->group(function(){
 
     Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+    Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::prefix('produk')->group(function () {
         Route::get('/', [ProdukController::class, 'index']);
